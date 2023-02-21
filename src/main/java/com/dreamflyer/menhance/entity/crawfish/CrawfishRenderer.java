@@ -13,21 +13,30 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Pose;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class CrawfishRenderer extends MobRenderer<Crawfish, BuildableModel<Crawfish>> {
-	private static final ResourceLocation CRAWFISH_LOCATION_TEXTURE = new ResourceLocation(ExampleMod.MODID, "textures/entity/fish/crawfish/crawfish.png");
+	private static final ResourceLocation CRAWFISH_LOCATION_TEXTURE = new ResourceLocation(ExampleMod.MODID, "textures/entity/fish/crawfish/ctest.png");
 	private static final ResourceLocation CRAWFISH_LOCATION_MODEL = new ResourceLocation(ExampleMod.MODID, "models/entity/fish/crawfish/crawfish.json");
 	
 	//private static final LayerDefinition layerDefinition = CrawfishModel.createBodyLayer();
 	
-	private static final MeshNode MESH_DEFENITION = BuildableModelLoader.load(CRAWFISH_LOCATION_MODEL);
+	private static final MeshNode MESH_DEFENITION = BuildableModelLoader.load(CRAWFISH_LOCATION_MODEL, 1024);
 	
 	public CrawfishRenderer(EntityRendererProvider.Context p_173954_) {
-		super(p_173954_, new BuildableModel<Crawfish>(MESH_DEFENITION), 0.3F);
+		super(p_173954_, new BuildableModel<Crawfish>(MESH_DEFENITION, (entity, name) -> {
+			if(entity instanceof Crawfish) {
+				Crawfish c = (Crawfish) entity;
+				
+				return c.walk;
+			}
+			
+			return null;
+		}), 0.3F);
 		
 		//super(p_173954_, new BuildableModel<>(layerDefinition.bakeRoot()), 0.3F);
 		

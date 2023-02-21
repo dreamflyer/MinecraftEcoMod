@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.dreamflyer.model.buildable.BuildableModelDescription.Frame;
+
 public class BuildableModelDescription {
 	private BuildableModelDescription() {
 		
@@ -75,6 +77,14 @@ public class BuildableModelDescription {
 			this.y = y;
 			this.z = z;
 		}
+		
+		public Size(float x, float y) {
+			this(x, y, 0);
+		}
+		
+		public Size(float size) {
+			this(size, size, size);
+		}
 	}
 	
 	public static class UVPosition {
@@ -87,7 +97,31 @@ public class BuildableModelDescription {
 		}
 	}
 	
-	private static class Animation {
+	public static class Rotation {
+		public final float x;
+		public final float y;
+		public final float z;
 		
+		public Rotation(float x, float y, float z) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+	}
+	
+	public static class Frame {
+		public final float position;
+		
+		public final Rotation rotation;
+		
+		public Frame(float position, Rotation rotation) {
+			this.position = position;
+			
+			this.rotation = rotation;
+		}
+	}
+	
+	public static class Animation {
+		public final List<Frame> frames = new ArrayList<Frame>();
 	}
 }
